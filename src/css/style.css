@@ -1,0 +1,13 @@
+.table {
+   border-collapse: collapse;
+}
+
+.table__header {
+   font-weight: bold;
+   text-align: center;
+   background-color: gold;
+}
+
+td {
+   border: 1px solid grey;
+}
