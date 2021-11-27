@@ -5,18 +5,11 @@ class Table {
     } else {
       this.element = element;
       this.data = data;
-      this.rows = null;
       this.col = null;
 
       this.appearance();
-      this.ascendingSortId();
-      this.descendingSort('id');
-      this.ascendingSortYear();
-      this.descendingSort('year');
-      this.ascendingSortImdb();
-      this.descendingSort('imdb');
-      this.ascendingSortTitle();
-      this.descendingSortTitle();
+      this.work();
+      setInterval(this.work.bind(this), 16000);
     }
   }
 
@@ -52,16 +45,16 @@ class Table {
 
   ascendingSortTitle() {
     this.rows.sort((a, b) => {
-      if (a.dataset.title < b.dataset.title) return -1;
-      if (b.dataset.title < a.dataset.title) return 1;
+      if (a.dataset.title.trim().toLowerCase().replace(/ё/g, 'е') < b.dataset.title.trim().toLowerCase().replace(/ё/g, 'е')) return -1;
+      if (a.dataset.title.trim().toLowerCase().replace(/ё/g, 'е') > b.dataset.title.trim().toLowerCase().replace(/ё/g, 'е')) return 1;
     });
     this.transformationDOM('title', '↓');
   }
 
   descendingSortTitle() {
     this.rows.sort((a, b) => {
-      if (a.dataset.title < b.dataset.title) return 1;
-      if (b.dataset.title < a.dataset.title) return -1;
+      if (a.dataset.title.trim().toLowerCase().replace(/ё/g, 'е') < b.dataset.title.trim().toLowerCase().replace(/ё/g, 'е')) return 1;
+      if (a.dataset.title.trim().toLowerCase().replace(/ё/g, 'е') > b.dataset.title.trim().toLowerCase().replace(/ё/g, 'е')) return -1;
     });
     this.transformationDOM('title', '↑');
   }
@@ -78,6 +71,17 @@ class Table {
     }
     this.col = document.querySelector(`.header__${parametre}`);
     this.col.textContent = `${parametre} ${trend}`;
+  }
+
+  work() {
+    setTimeout(this.ascendingSortId.bind(this), 2000);
+    setTimeout(this.descendingSort.bind(this), 4000, 'id');
+    setTimeout(this.ascendingSortTitle.bind(this), 6000);
+    setTimeout(this.descendingSortTitle.bind(this), 8000);
+    setTimeout(this.ascendingSortYear.bind(this), 10000);
+    setTimeout(this.descendingSort.bind(this), 12000, 'year');
+    setTimeout(this.ascendingSortImdb.bind(this), 14000);
+    setTimeout(this.descendingSort.bind(this), 16000, 'imdb');
   }
 }
 
