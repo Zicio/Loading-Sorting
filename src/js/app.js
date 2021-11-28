@@ -7,13 +7,13 @@ export default class Table {
       this.data = data;
       this.col = null;
 
-      this.appearance();
+      this.transformationRows();
       this.work();
       setInterval(this.work.bind(this), 16000);
     }
   }
 
-  appearance() {
+  transformationRows() {
     for (const film of this.data) {
       this.element.insertAdjacentHTML(
         'beforeend',
@@ -25,22 +25,22 @@ export default class Table {
 
   ascendingSortId() {
     this.rows.sort((a, b) => a.dataset.id - b.dataset.id);
-    this.transformationDOM('id', '↓');
+    this.transformationHeader('id', '↓');
   }
 
   descendingSort(parametre) {
     this.rows.reverse();
-    this.transformationDOM(parametre, '↑');
+    this.transformationHeader(parametre, '↑');
   }
 
   ascendingSortYear() {
     this.rows.sort((a, b) => a.dataset.year - b.dataset.year);
-    this.transformationDOM('year', '↓');
+    this.transformationHeader('year', '↓');
   }
 
   ascendingSortImdb() {
     this.rows.sort((a, b) => a.dataset.imdb - b.dataset.imdb);
-    this.transformationDOM('imdb', '↓');
+    this.transformationHeader('imdb', '↓');
   }
 
   ascendingSortTitle() {
@@ -48,10 +48,10 @@ export default class Table {
       if (a.dataset.title.trim().toLowerCase().replace(/ё/g, 'е') < b.dataset.title.trim().toLowerCase().replace(/ё/g, 'е')) return -1;
       return 1;
     });
-    this.transformationDOM('title', '↓');
+    this.transformationHeader('title', '↓');
   }
 
-  transformationDOM(parametre, trend) {
+  transformationHeader(parametre, trend) {
     if (this.col) {
       this.col.textContent = this.col.textContent.slice(0, -2);
     }
