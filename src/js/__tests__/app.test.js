@@ -1,5 +1,5 @@
-import { Field } from '../app';
+import Table from '../app';
 
 test('not element', () => {
-  expect(new Field('')).toThrowError('Элемент не существует');
+  expect(() => new Table(null)).toThrowError(new Error('Элемент не существует'));
 });

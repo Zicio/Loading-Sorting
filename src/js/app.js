@@ -1,4 +1,4 @@
-class Table {
+export default class Table {
   constructor(element, data) {
     if (!element) {
       throw new Error('Элемент не существует');
@@ -46,17 +46,9 @@ class Table {
   ascendingSortTitle() {
     this.rows.sort((a, b) => {
       if (a.dataset.title.trim().toLowerCase().replace(/ё/g, 'е') < b.dataset.title.trim().toLowerCase().replace(/ё/g, 'е')) return -1;
-      if (a.dataset.title.trim().toLowerCase().replace(/ё/g, 'е') > b.dataset.title.trim().toLowerCase().replace(/ё/g, 'е')) return 1;
+      return 1;
     });
     this.transformationDOM('title', '↓');
-  }
-
-  descendingSortTitle() {
-    this.rows.sort((a, b) => {
-      if (a.dataset.title.trim().toLowerCase().replace(/ё/g, 'е') < b.dataset.title.trim().toLowerCase().replace(/ё/g, 'е')) return 1;
-      if (a.dataset.title.trim().toLowerCase().replace(/ё/g, 'е') > b.dataset.title.trim().toLowerCase().replace(/ё/g, 'е')) return -1;
-    });
-    this.transformationDOM('title', '↑');
   }
 
   transformationDOM(parametre, trend) {
@@ -77,46 +69,10 @@ class Table {
     setTimeout(this.ascendingSortId.bind(this), 2000);
     setTimeout(this.descendingSort.bind(this), 4000, 'id');
     setTimeout(this.ascendingSortTitle.bind(this), 6000);
-    setTimeout(this.descendingSortTitle.bind(this), 8000);
+    setTimeout(this.descendingSort.bind(this), 8000, 'title');
     setTimeout(this.ascendingSortYear.bind(this), 10000);
     setTimeout(this.descendingSort.bind(this), 12000, 'year');
     setTimeout(this.ascendingSortImdb.bind(this), 14000);
     setTimeout(this.descendingSort.bind(this), 16000, 'imdb');
   }
 }
-
-const data = [
-  {
-    id: 26,
-    title: 'Побег из Шоушенка',
-    imdb: 9.30,
-    year: 1994,
-  },
-  {
-    id: 25,
-    title: 'Крёстный отец',
-    imdb: 9.20,
-    year: 1972,
-  },
-  {
-    id: 27,
-    title: 'Крёстный отец 2',
-    imdb: 9.00,
-    year: 1974,
-  },
-  {
-    id: 1047,
-    title: 'Тёмный рыцарь',
-    imdb: 9.00,
-    year: 2008,
-  },
-  {
-    id: 223,
-    title: 'Криминальное чтиво',
-    imdb: 8.90,
-    year: 1994,
-  },
-];
-
-const table = document.getElementsByTagName('tbody');
-export default new Table(table[0], data);
