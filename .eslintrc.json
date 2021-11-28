@@ -12,7 +12,6 @@
       "WithStatement"
     ],
     "no-unused-vars": "off",
-    "no-console": "off",
-    "array-callback-return": "off"
+    "no-console": "off"
   }
 }
